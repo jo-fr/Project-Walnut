@@ -1,0 +1,7 @@
+cmake-build-debug/
+googletest/
+test/
+.idea/
+
+.DS_Store
+
