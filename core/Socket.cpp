@@ -2,14 +2,13 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
-#include <iostream>
+#include <string>
 
 Socket::Socket() {
     if ((m_socket = socket(AF_INET, SOCK_STREAM, 0)) == 0)
         throw std::runtime_error("unable to create socket");
 };
 
-// binds socket to address and port number
 void Socket::Bind(int port) {
 
     m_address.sin_family = AF_INET;
@@ -40,7 +39,6 @@ Socket Socket::Accept() {
 void Socket::Recv(char *req) {
     if (recv(m_socket, req, 30000, 0) < 0)
         throw std::runtime_error("nothing to read");
-
 }
 
 void Socket::Send(char *resp) {
@@ -48,7 +46,6 @@ void Socket::Send(char *resp) {
         throw std::runtime_error("unable to send");
 }
 
-//closes Socket connection
 void Socket::Close() {
     if(m_socket != 0) close(m_socket);
     m_socket = 0;

@@ -1,7 +1,5 @@
 #include "Server.h"
-#include <sys/socket.h>
-#include <unistd.h>
-#include <netinet/in.h>
+#include "Request.h"
 #include <iostream>
 
 
@@ -24,8 +22,10 @@ void Server::Run(int port) {
 
         char req[30000] = {0};
         socket_accept.Recv(req);
+        Request* r = new Request(req);
         std::cout << "######## Incoming Request ########" << std::endl;
-        parser(req);
+        r->printRequest();
+
 
        socket_accept.Send(m_msg);
         std::cout << "######## Response Sent ########" << std::endl;
