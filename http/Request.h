@@ -40,15 +40,13 @@ private:
     headers headers{};
     std::string body = "";
 
-    std::vector<std::vector<std::string>> tokenizeRequest(char* req);
+    static std::vector<std::vector<std::string>> tokenizeRequest(char* req);
     void parseHeaders( std::vector<std::vector<std::string>>);
     void parseStartline(std::vector<std::string> line);
     static httpMethod getMethod(const std::string& method);
     static connection getConnection(const std::string& connection);
     bool isValidHTTPVersion();
     bool isValidMethod();
-    std::vector<std::string> tokenize(std::string input, char delimiter);
-
 
 public:
     explicit Request(char* req);

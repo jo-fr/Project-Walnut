@@ -7,6 +7,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include "../utils.cpp"
 
 
 Request::Request(char *req) {
@@ -22,11 +23,12 @@ Request::Request(char *req) {
 
 //tokenizeRequest takes the raw request and splits it up on every '\n' and ' ' into a 3D vector
 std::vector<std::vector<std::string>> Request::tokenizeRequest(char *req) {
-    std::vector<std::string> lines = tokenize(req, '\n');
+    std::vector<std::string> lines = utils::tokenize(req, '\n');
     std::vector<std::vector<std::string>> results;
 
-    for (int i = 0; i < lines.size(); i++) {
-        results.push_back(tokenize(lines[i], ' '));
+    results.reserve(lines.size());
+for (const auto & line : lines) {
+        results.push_back(utils::tokenize(line, ' '));
     }
 
     return results;
@@ -44,8 +46,8 @@ void Request::parseStartline(std::vector<std::string> line) {
 void Request::parseHeaders(std::vector<std::vector<std::string>> headerlines) {
     for (auto &line : headerlines) {
         if (line[0] == "Host:") this->headers.host = line[1];
-        if (line[0] == "Accept-Language:") this->headers.language = tokenize(line[1], ',');
-        if (line[0] == "Accept:") this->headers.acceptTypes = tokenize(line[1], ',');
+        if (line[0] == "Accept-Language:") this->headers.language = utils::tokenize(line[1], ',');
+        if (line[0] == "Accept:") this->headers.acceptTypes = utils::tokenize(line[1], ',');
         if (line[0] == "Connection:") this->headers.connection = getConnection(line[1]);
     }
 }
@@ -101,17 +103,4 @@ void Request::printRequest() {
     for (auto &i : this->headers.acceptTypes) {
         std::cout << i << std::endl;
     }
-}
-
-
-std::vector<std::string> Request::tokenize(std::string input, char delimiter) {
-    std::stringstream line(input);
-    std::vector<std::string> tokens;
-    std::string intermediate;
-
-    while (getline(line, intermediate, delimiter)) {
-        tokens.push_back(intermediate);
-    }
-
-    return tokens;
 }
