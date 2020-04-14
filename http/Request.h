@@ -1,59 +1,24 @@
+#pragma once
 #ifndef WEBSERVER_REQUEST_H
 #define WEBSERVER_REQUEST_H
 
 #include <string>
 #include <vector>
 #include <sstream>
+#include "Header.h"
 
-enum httpMethod {
-    GET,
-    POST,
-    PUT,
-    DELETE,
-    CONNECT,
-    HEAD,
-    OPTIONS,
-    PATCH,
-    TRACE,
-    UNKNOWN = -1,
-};
+class Request : public Header {
 
-enum connection {
-    CLOSE,
-    KEEPALIVE,
-    INVALID = -1,
-};
-
-struct headers {
-    std::string host;
-    std::vector<std::string> acceptTypes;
-    std::vector<std::string> language;
-    connection connection;
-
-};
-
-class Request {
 private:
-    httpMethod method;
-    std::string path;
-    std::string version;
-    headers headers{};
-    std::string body = "";
-
-    static std::vector<std::vector<std::string>> tokenizeRequest(char* req);
-    void parseHeaders( std::vector<std::vector<std::string>>);
-    void parseStartline(std::vector<std::string> line);
-    static httpMethod getMethod(const std::string& method);
-    static connection getConnection(const std::string& connection);
+    void parseHeaders(std::vector<std::string> *headerlines);
+    void parseStartline(std::string *line);
     bool isValidHTTPVersion();
     bool isValidMethod();
+    static void splitRequestIntoParts(std::string *startline, std::vector<std::string> *headerlines, std::string *body, char *req);
 
 public:
-    explicit Request(char* req);
+    explicit Request(char *req);
     void validateRequest();
-    void printRequest();
-
 };
-
 
 #endif //WEBSERVER_REQUEST_H

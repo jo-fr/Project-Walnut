@@ -1,7 +1,6 @@
 #include "Server.h"
-#include "Request.h"
+#include "../http/Request.h"
 #include <iostream>
-
 
 Server::Server() {
     m_running = false;
@@ -22,10 +21,10 @@ void Server::Run(int port) {
 
         char req[30000] = {0};
         socket_accept.Recv(req);
-        Request* r = new Request(req);
+        auto* r = new Request(req);
         std::cout << "######## Incoming Request ########" << std::endl;
         r->validateRequest();
-        r->printRequest();
+        //r->printRequest();
 
 
        socket_accept.Send(m_msg);
@@ -36,8 +35,4 @@ void Server::Run(int port) {
     }
 
     m_socket.Close();
-}
-
-void Server::parser(char buffer[]) {
-    std::cout << buffer << std::endl;
 }
