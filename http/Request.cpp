@@ -8,7 +8,6 @@
 #include <stdexcept>
 using namespace std;
 
-
 Request::Request(char *req) {
 
     string startline , body;
@@ -17,9 +16,7 @@ Request::Request(char *req) {
     splitRequestIntoParts(&startline,&headerlines, &body, req);
 
     this->m_body = body;
-    cout << "Body: " << this->m_body << endl;
     this->parseStartline(&startline);
-    cout << "Startline: " << startline << endl;
     this->parseHeaders(&headerlines);
 
     this->validateRequest();
@@ -75,7 +72,7 @@ void Request::parseStartline(string *line) {
 void Request::parseHeaders(vector<string> *headerlines) {
     for (const auto & headerline : *headerlines) {
         auto v = utils::tokenize(headerline, ':', 2);
-        cout << "Größe:" << v.size() << endl;
+
         if (v.size() != 2) throw runtime_error("invalid Headerline");
 
         auto key = move(v.at(0));

@@ -20,11 +20,9 @@ namespace utils {
         auto splitCounter = 0;
 
         while ((iterations == -1 || splitCounter < iterations) && getline(line, intermediate, delimiter)) {
-
             cleanString(&intermediate);
             tokens.push_back(intermediate);
             splitCounter++;
-            std::cout << ">>" << intermediate << std::endl;
         }
 
         return tokens;

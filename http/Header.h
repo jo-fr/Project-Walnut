@@ -99,9 +99,6 @@ protected:
     };
 
 
-
-    httpMethod m_method;
-    std::string m_path;
     std::string m_version;
     std::map<std::string, std::vector<std::string>> m_headers;
     std::string m_body;

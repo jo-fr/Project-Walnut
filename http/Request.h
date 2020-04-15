@@ -8,8 +8,10 @@
 #include "Header.h"
 
 class Request : public Header {
-
 private:
+    httpMethod m_method;
+    std::string m_path;
+
     void parseHeaders(std::vector<std::string> *headerlines);
     void parseStartline(std::string *line);
     bool isValidHTTPVersion();

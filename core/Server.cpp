@@ -23,9 +23,8 @@ void Server::Run(int port) {
         socket_accept.Recv(req);
         auto* r = new Request(req);
         std::cout << "######## Incoming Request ########" << std::endl;
+        std::cout << req << std::endl;
         r->validateRequest();
-        //r->printRequest();
-
 
        socket_accept.Send(m_msg);
         std::cout << "######## Response Sent ########" << std::endl;
