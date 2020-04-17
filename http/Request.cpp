@@ -100,3 +100,7 @@ bool Request::isValidHTTPVersion() {
 bool Request::isValidMethod() {
     return m_method != -1;
 }
+
+std::string Request::getPath() {
+    return this->m_path;
+}

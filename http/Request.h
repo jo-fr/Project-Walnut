@@ -21,6 +21,7 @@ private:
 public:
     explicit Request(char *req);
     void validateRequest();
+    std::string getPath();
 };
 
 #endif //WEBSERVER_REQUEST_H
