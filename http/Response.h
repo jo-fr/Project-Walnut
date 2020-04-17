@@ -7,6 +7,18 @@
 
 
 class Response : public Header {
+private:
+    int m_statuscode{};
+    char *m_response;
+
+
+public:
+    Response();
+    void setStatusCode(int statuscode);
+    void setVersion(std::string version);
+    void setResponseBody(std::string body);
+    void makeResponseMsg();
+    char* getResponseMsg();
 
 };
 

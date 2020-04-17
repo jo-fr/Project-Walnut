@@ -1,11 +1,11 @@
 #include "Server.h"
 #include "../http/Request.h"
+#include "../http/Response.h"
 #include <iostream>
 
 Server::Server() {
     m_running = false;
     m_socket = Socket();
-    m_msg = (char *)"HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 20\n\n <h1>Hello World</h1>";
 }
 
 void Server::Run(int port) {
@@ -21,14 +21,23 @@ void Server::Run(int port) {
 
         char req[30000] = {0};
         socket_accept.Recv(req);
-        auto* r = new Request(req);
+        auto *r = new Request(req);
         std::cout << "######## Incoming Request ########" << std::endl;
         std::cout << req << std::endl;
         r->validateRequest();
 
-       socket_accept.Send(m_msg);
+        std::string msg = "<h1>Hello World</h1>";
+        auto *res = new Response();
+        res->setStatusCode(200);
+        res->setResponseBody(msg);
+        res->addHeaderline("Content-Length", std::vector<std::string>{std::to_string(msg.size())});
+        res->addHeaderline("Content-Type", std::vector<std::string>{"text/html"});
+        res->makeResponseMsg();
+
+
+       socket_accept.Send(res->getResponseMsg());
         std::cout << "######## Response Sent ########" << std::endl;
-        std::cout << m_msg << std::endl;
+        std::cout << res->getResponseMsg() << std::endl;
 
         socket_accept.Close();
     }

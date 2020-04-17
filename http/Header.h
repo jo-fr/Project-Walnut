@@ -98,7 +98,6 @@ protected:
             {599, "Network Conncte Timeout Error"}
     };
 
-
     std::string m_version;
     std::map<std::string, std::vector<std::string>> m_headers;
     std::string m_body;
