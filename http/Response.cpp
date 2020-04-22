@@ -18,17 +18,16 @@ void Response::setResponseBody(std::string body) {
 }
 
 void Response::setVersion(std::string version) {
-    this->m_version = version;
+    this->m_version = std::move(version);
 }
 
 void Response::makeResponseMsg() {
 
+    auto statuscode = std::to_string(this->m_statuscode);
+    auto statusMessage = Header::statusCodes[this->m_statuscode];
 
-    //stringifyHeader
-    //setStartline
+    auto startline = "HTTP/1.1 " + statuscode + " " + statusMessage + "\n";
 
-    auto startline = "HTTP/1.1 "  + std::to_string(this->m_statuscode) + " " + Header::statusCodes[this->m_statuscode] + "\n";
-    //setHeaders
     std::string header;
 
     for (const auto& line : m_headers) {
@@ -44,16 +43,14 @@ void Response::makeResponseMsg() {
 
         header += headerline + "\n";
     }
+    header += "\n";
 
-    std::string body = "\n" + this->m_body;
-   auto full_response = startline + header + body;
-   m_response = const_cast<char *>(full_response.c_str());
-
+    auto body = this->m_body;
+    auto full_response = startline + header + body;
+    this->m_response = const_cast<char *>(full_response.c_str());
 
 }
 
-char *Response::getResponseMsg() {
+char* Response::getResponseMsg() {
     return this->m_response;
 }
-
-

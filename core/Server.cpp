@@ -1,6 +1,7 @@
 #include "Server.h"
 #include "../http/Request.h"
 #include "../http/Response.h"
+#include "../utils.h"
 #include <iostream>
 
 Server::Server() {
@@ -26,18 +27,18 @@ void Server::Run(int port) {
         std::cout << req << std::endl;
         r->validateRequest();
 
-        std::string msg = "<h1>Hello World</h1>";
+        std::string msg = utils::fetchFile("../www/index.html");;
         auto *res = new Response();
         res->setStatusCode(200);
+        std::cout << "######## Response Sent ########" << std::endl;
         res->setResponseBody(msg);
         res->addHeaderline("Content-Length", std::vector<std::string>{std::to_string(msg.size())});
         res->addHeaderline("Content-Type", std::vector<std::string>{"text/html"});
         res->makeResponseMsg();
 
 
-       socket_accept.Send(res->getResponseMsg());
-        std::cout << "######## Response Sent ########" << std::endl;
         std::cout << res->getResponseMsg() << std::endl;
+        socket_accept.Send(res->getResponseMsg());
 
         socket_accept.Close();
     }

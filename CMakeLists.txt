@@ -9,6 +9,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 #add_subdirectory(googletest)
 
-add_executable(${This} main.cpp core/Server.cpp core/Socket.cpp http/Request.cpp http/Response.cpp http/Header.cpp)
+add_executable(${This} main.cpp core/Server.cpp core/Socket.cpp http/Request.cpp http/Response.cpp http/Header.cpp utils.cpp)
 
 #add_subdirectory(test)

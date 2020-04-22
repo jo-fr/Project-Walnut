@@ -1,5 +1,5 @@
 #include "utils.h"
-
+#include <fstream>
 //cleanString removes spaces and line breaks from the start and end of a given string
 void utils::cleanString(std::string *string) {
     if ((*string)[0] == ' ') string->erase(string->begin());
@@ -24,9 +24,11 @@ std::vector<std::string> utils::tokenize(const std::string &input, char delimite
     return tokens;
 }
 
-void utils::fetchFile() {
-    std::string path = "../www";
-    for (const auto & entry : std::filesystem::directory_iterator(path)) {
-        std::cout << entry.path() << std::endl;
-    }
+std::string utils::fetchFile(const std::string& file) {
+
+    std::ifstream ifs(file);
+    std::string content( (std::istreambuf_iterator<char>(ifs) ),
+                    (std::istreambuf_iterator<char>()    ) );
+
+    return content;
 }
