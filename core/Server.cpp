@@ -4,6 +4,8 @@
 #include "../utils.h"
 #include <iostream>
 
+#define WWW_DIRECTORY "../www"
+
 Server::Server() {
     m_running = false;
     m_socket = Socket();
@@ -23,12 +25,17 @@ void Server::Run(int port) {
         char req[30000] = {0};
         socket_accept.Recv(req);
         auto *r = new Request(req);
+
         std::cout << "######## Incoming Request ########" << std::endl;
         std::cout << req << std::endl;
         r->validateRequest();
 
-        std::string path = r->getPath();
-        std::string msg = utils::fetchFile("../www", path);
+        auto path = r->getPath();
+
+        if (path == "/") path = "/index.html";
+        std::cout << "Path:" << path << std::endl;
+
+        std::string msg = utils::fetchFile(WWW_DIRECTORY, path);
         auto *res = new Response();
         res->setStatusCode(200);
         std::cout << "######## Response Sent ########" << std::endl;
