@@ -24,9 +24,9 @@ std::vector<std::string> utils::tokenize(const std::string &input, char delimite
     return tokens;
 }
 
-std::string utils::fetchFile(const std::string& file) {
+std::string utils::fetchFile(const std::string& directory, const std::string& file) {
 
-    std::ifstream ifs(file);
+    std::ifstream ifs(directory + file);
     std::string content( (std::istreambuf_iterator<char>(ifs) ),
                     (std::istreambuf_iterator<char>()    ) );
 

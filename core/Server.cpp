@@ -27,7 +27,8 @@ void Server::Run(int port) {
         std::cout << req << std::endl;
         r->validateRequest();
 
-        std::string msg = utils::fetchFile("../www/index.html");;
+        std::string path = r->getPath();
+        std::string msg = utils::fetchFile("../www", path);
         auto *res = new Response();
         res->setStatusCode(200);
         std::cout << "######## Response Sent ########" << std::endl;
