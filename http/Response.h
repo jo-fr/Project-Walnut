@@ -17,7 +17,7 @@ public:
     void setStatusCode(int statuscode);
     void setVersion(std::string version);
     void setResponseBody(std::string body);
-    void makeResponseMsg();
+    void makeResponseString();
     char* getResponseMsg();
 
 };

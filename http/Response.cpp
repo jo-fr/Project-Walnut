@@ -21,7 +21,7 @@ void Response::setVersion(std::string version) {
     this->m_version = std::move(version);
 }
 
-void Response::makeResponseMsg() {
+void Response::makeResponseString() {
 
     auto statuscode = std::to_string(this->m_statuscode);
     auto statusMessage = Header::statusCodes[this->m_statuscode];
