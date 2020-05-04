@@ -4,7 +4,7 @@
 #include "../utils.h"
 #include <iostream>
 
-#define WWW_DIRECTORY "../www"
+#define WWW_DIRECTORY "./www"
 
 Server::Server() {
     m_running = false;
