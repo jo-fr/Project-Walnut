@@ -95,7 +95,7 @@ protected:
             {508, "Loop Detected"},
             {510, "Not Extended"},
             {511, "Network Authentication Required"},
-            {599, "Network Conncte Timeout Error"}
+            {599, "Network Connection Timeout Error"}
     };
 
     std::string m_version;
