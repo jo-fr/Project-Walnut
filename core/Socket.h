@@ -4,6 +4,7 @@
 #define WEBSERVER_SOCKET_H
 
 #include <netinet/in.h>
+#include <string>
 
 class Socket {
 
@@ -19,7 +20,7 @@ public:
     void Listen();
     Socket Accept();
     void Recv(char* req);
-    void Send(char* resp);
+    void Send(const std::string resp);
 
 };
 

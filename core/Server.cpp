@@ -35,8 +35,10 @@ void Server::Run(int port) {
         auto response = makeResponse(path);
 
         std::cout << "######## Response Sent ########" << std::endl;
-        std::cout << response->getResponseMsg() << std::endl;
-        socket_accept.Send(response->getResponseMsg());
+        std::string responseMessage = response->getResponseMsg();
+        std::cout << responseMessage << std::endl;
+
+        socket_accept.Send(responseMessage);
 
         socket_accept.Close();
     }

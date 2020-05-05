@@ -34,11 +34,11 @@ void Response::makeResponseString() {
     }
     full_response += "\r\n";
 
-    full_response += this->m_body;
-    this->m_response = const_cast<char *>(full_response.c_str());
+    full_response +=  m_body;
+    this->m_response = std::move(full_response);
 
 }
 
-char* Response::getResponseMsg() {
-    return this->m_response;
+std::string Response::getResponseMsg() {
+    return m_response;
 }

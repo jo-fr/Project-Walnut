@@ -9,7 +9,7 @@
 class Response : public Header {
 private:
     int m_statuscode{};
-    char *m_response;
+    std::string m_response;
 
 
 public:
@@ -18,7 +18,7 @@ public:
     void setVersion(std::string version);
     void setResponseBody(std::string body);
     void makeResponseString();
-    char* getResponseMsg();
+    std::string getResponseMsg();
 
 };
 

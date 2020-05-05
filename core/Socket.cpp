@@ -41,8 +41,8 @@ void Socket::Recv(char *req) {
         throw std::runtime_error("nothing to read");
 }
 
-void Socket::Send(char *resp) {
-    if (send(m_socket, resp, strlen(resp), 0) < 0)
+void Socket::Send(const std::string resp) {
+    if (send(m_socket, resp.c_str(), resp.size(), 0) < 0)
         throw std::runtime_error("unable to send");
 }
 
