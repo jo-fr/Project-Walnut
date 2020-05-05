@@ -1,0 +1,4 @@
+BreakBeforeBraces: false
+AllowShortIfStatementsOnASingleLine: true
+IndentCaseLabels: false
+ColumnLimit: 0
