@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-void Header::addHeaderline(const std::string& key, std::vector<std::string> value) {
-    this->m_headers.insert(std::pair<std::string, std::vector<std::string>>(key, value));
+void Header::addHeaderline(const std::string& key,const std::string& value) {
+    this->m_headers.insert(std::pair<std::string, std::string>(key, value));
 }
 
 ///getMethod takes the HTTP method as a string and returns it as an enumerator

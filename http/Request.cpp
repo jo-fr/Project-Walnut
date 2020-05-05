@@ -78,9 +78,7 @@ void Request::parseHeaders(vector<string>& headerlines) {
         auto key = move(v.at(0));
         auto value = move(v.at(1));
 
-        auto tokenizedValues = utils::tokenize(value, ',');
-
-        addHeaderline(key, tokenizedValues);
+        addHeaderline(key, value);
 
     }
 }

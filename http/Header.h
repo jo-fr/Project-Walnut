@@ -99,14 +99,14 @@ protected:
     };
 
     std::string m_version;
-    std::map<std::string, std::vector<std::string>> m_headers;
+    std::map<std::string, std::string> m_headers;
     std::string m_body;
 
     httpMethod getMethod(const std::string &method);
     connection getConnection(const std::string &connection);
 
 public:
-    void addHeaderline(const std::string& key, std::vector<std::string> value);
+    void addHeaderline(const std::string& key, const std::string& value);
 
 };
 

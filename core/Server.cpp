@@ -57,8 +57,8 @@ Response *Server::makeResponse(const std::string& path) {
         res->setResponseBody("<center>404: File not Found</center>");
     }
 
-    res->addHeaderline("Content-Length", std::vector<std::string>{std::to_string(content.size())});
-    res->addHeaderline("Content-Type", std::vector<std::string>{"text/html"});
+    res->addHeaderline("Content-Length", std::to_string(content.size()));
+    res->addHeaderline("Content-Type","text/html");
     res->makeResponseString();
 
     return res;

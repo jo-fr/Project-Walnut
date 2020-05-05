@@ -28,14 +28,7 @@ void Response::makeResponseString() {
 
     for (const auto& line : m_headers) {
         std::string headerline;
-        headerline += line.first + ": ";
-
-        for (const auto& entry : line.second) {
-            headerline += entry;
-
-            //TODO: add comma seperation
-            //headerline +=",";
-        }
+        headerline += line.first + ": " + line.second;
 
         full_response += headerline + "\r\n";
     }
