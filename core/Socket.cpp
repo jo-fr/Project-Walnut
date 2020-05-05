@@ -17,7 +17,7 @@ void Socket::Bind(int port) {
 
     m_addrlen = sizeof(m_address);
 
-    memset(m_address.sin_zero, 0, m_addrlen);
+    memset(m_address.sin_zero, '\0', sizeof(m_address.sin_zero));
 
     if (bind(m_socket, (struct sockaddr *)&m_address, m_addrlen) < 0)
         throw std::runtime_error("unable to bind socket");
