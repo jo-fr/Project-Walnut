@@ -12,14 +12,14 @@ private:
     httpMethod m_method;
     std::string m_path;
 
-    void parseHeaders(std::vector<std::string> *headerlines);
-    void parseStartline(std::string *line);
+    void parseHeaders(std::vector<std::string>& headerlines);
+    void parseStartline(const std::string& line);
     bool isValidHTTPVersion();
     bool isValidMethod();
-    static void splitRequestIntoParts(std::string *startline, std::vector<std::string> *headerlines, std::string *body, char *req);
+    static void splitRequestIntoParts(std::string& startline, std::vector<std::string>& headerlines, std::string& body,char* req);
 
 public:
-    explicit Request(char *req);
+    explicit Request(char* req);
     void validateRequest();
     std::string getPath();
 };

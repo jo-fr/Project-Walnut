@@ -8,23 +8,23 @@
 #include <stdexcept>
 using namespace std;
 
-Request::Request(char *req) {
+Request::Request(char* req) {
 
     string startline , body;
     vector<string> headerlines;
 
-    splitRequestIntoParts(&startline,&headerlines, &body, req);
+    splitRequestIntoParts(startline,headerlines, body, req);
 
     this->m_body = body;
-    this->parseStartline(&startline);
-    this->parseHeaders(&headerlines);
+    this->parseStartline(startline);
+    this->parseHeaders(headerlines);
 
     this->validateRequest();
 
 }
 
 //splitRequestIntoParts takes the raw request and splits it into the startline, headlines, and m_body
-void Request::splitRequestIntoParts(string *startline, vector<string> *headerlines, string *body, char *req) {
+void Request::splitRequestIntoParts(string& startline, vector<string>& headerlines, string& body, char* req) {
     std::stringstream line((req));
     std::string intermediate;
     vector<string> results;
@@ -42,18 +42,18 @@ void Request::splitRequestIntoParts(string *startline, vector<string> *headerlin
         }
     }
 
-    *startline = results.at(0);
+    startline = results.at(0);
     results.erase(results.begin());
 
-    *body = results.at(results.size() - 1);
+    body = results.at(results.size() - 1);
     results.erase(results.end() - 1);
 
-    *headerlines = results;
+    headerlines = results;
 }
 
 //parseStartline takes the tokenized startline and casts it into its request object
-void Request::parseStartline(string *line) {
-    vector<string> values = utils::tokenize((*line), ' ');
+void Request::parseStartline(const string& line) {
+    vector<string> values = utils::tokenize((line), ' ');
     if (values.size() != 3) throw runtime_error("invalid Startline");
 
     string method = values.at(0);
@@ -69,8 +69,8 @@ void Request::parseStartline(string *line) {
 }
 
 //parseHeader takes a 3D vector and casts the headerlines into the Request object
-void Request::parseHeaders(vector<string> *headerlines) {
-    for (const auto & headerline : *headerlines) {
+void Request::parseHeaders(vector<string>& headerlines) {
+    for (const auto & headerline : headerlines) {
         auto v = utils::tokenize(headerline, ':', 2);
 
         if (v.size() != 2) throw runtime_error("invalid Headerline");
