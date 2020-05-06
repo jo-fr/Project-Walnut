@@ -3,6 +3,7 @@
 #include "../http/Response.h"
 #include "../utils.h"
 #include <iostream>
+#include <mime/mime.h>
 
 #define WWW_DIRECTORY "./www"
 
@@ -53,14 +54,15 @@ Response *Server::makeResponse(const std::string& path) {
     auto *res = new Response();
     if (!content.empty()) {
         res->setStatusCode(200);
+        res->addHeaderline("Content-Type",mime::lookup(path));
         
     } else {
         res->setStatusCode(404);
         content = "<center>404: File not Found</center>";
+        res->addHeaderline("Content-Type","text/html");
     }
 
     res->addHeaderline("Content-Length", std::to_string(content.size()));
-    res->addHeaderline("Content-Type","text/html");
     res->setResponseBody(content);
     res->makeResponseString();
 
