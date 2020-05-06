@@ -3,9 +3,12 @@ build/
 googletest/
 test/
 .idea/
-
 .vscode/
 
+
+*.pdf
+*.jpg
+*.png
 
 .DS_Store
 
